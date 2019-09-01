@@ -213,7 +213,11 @@ export default {
   },
 
   created() {
+    console.info('创建');
     this.initViews();
+  },
+  watch: {
+    "$route": "initViews"
   },
 
   methods: {
@@ -225,13 +229,14 @@ export default {
     },
     goTopic(id) {
       return `#/items/topic/${id}`;
-    },    
+    },
     getCoupon(id) {
       couponReceive({ couponId: id }).then(res => {
         Toast.success('领取成功');
       });
     },
     changeTabbar(o) {
+      console.info('切换成功');
       goodsCategory({ id: o.id }).then(res => {
         let categoryId = res.data.data.currentCategory.id;
         this.$router.replace({
@@ -242,6 +247,7 @@ export default {
     },
     initViews() {
       getHome().then(res => {
+        console.info("刷新"+res.data.data);
         this.shopInfos = res.data.data;
       });
     }
