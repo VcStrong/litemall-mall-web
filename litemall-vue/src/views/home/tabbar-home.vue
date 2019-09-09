@@ -50,7 +50,7 @@
     </van-panel>
 
     <van-panel>
-      <van-card :thumb-link="goDetail(grouponGood.id)"
+      <van-card
                 v-for="(grouponGood ,index) in shopInfos.grouponList"
                 :key="index"
                 :title="grouponGood.name"
@@ -58,7 +58,7 @@
                 :origin-price="grouponGood.retailPrice"
                 :price="grouponGood.grouponPrice +'.00'"
                 :thumb="grouponGood.picUrl"
-                @native-click="goDetail(grouponGood.id)">
+                @click.native="goDetail(grouponGood.id)">
         <div slot="tags"
              class="card__tags">
           <van-tag plain
@@ -130,7 +130,7 @@
     </van-panel>
 
     <van-panel>
-      <van-card :thumb-link="goDetail(groupGood.id)"
+      <van-card
                 v-for="(groupGood ,index) in shopInfos.hotGoodsList"
                 :key="index"
                 :title="groupGood.name"
@@ -138,7 +138,7 @@
                 :origin-price="groupGood.counterPrice"
                 :price="groupGood.retailPrice +'.00'"
                 :thumb="groupGood.picUrl"
-                @native-click="goDetail(groupGood.id)">
+                @click.native="goDetail(groupGood.id)">
         <!-- <div slot="footer">添加日期 {{item.addTime}}</div> -->
       </van-card>
       <div slot='header'>
@@ -222,7 +222,7 @@ export default {
 
   methods: {
     goDetail(id) {
-      return `#/items/detail/${id}`;
+      this.$router.push(`/items/detail/${id}`);
     },
     goBrand(id) {
       return `#/items/brand/${id}`;

@@ -37,7 +37,7 @@
       label="总计"
       @submit="cartSubmit"
     >
-      <van-checkbox v-model="allCheckedStatus" @change="setCheckAll" style="padding: 0 10px;">全选</van-checkbox>
+      <!--<van-checkbox v-model="allCheckedStatus" @change="setCheckAll" style="padding: 0 10px;">全选</van-checkbox>-->
     </van-submit-bar>
   </div>
 </template>
@@ -104,6 +104,9 @@ export default {
         this.goods = res.data.data.cartList;
         this.AllGoods = this.getAllList();
         this.checkedGoods = this.getCheckedList(this.goods);
+        if (this.checkedGoods.length === this.AllGoods.length){
+          this.allCheckedStatus = true;
+        }
         this.count = this.checkedGoods.length;
       });
     },
@@ -117,6 +120,7 @@ export default {
     getCheckedList(goods) {
       let result = [];
       _.each(goods, v => {
+        console.log(v.checked+"   "+v.id);
         if (v.checked) {
           result.push(v.id);
         }
@@ -149,7 +153,7 @@ export default {
       }
     },
     setCheckAll(val) {
-      if (this.checkedGoods.length === this.AllGoods.length) {
+      if (this.allCheckedStatus) {
         this.checkedGoods = [];
       } else {
         this.checkedGoods = this.AllGoods;
@@ -165,6 +169,7 @@ export default {
           });
         });
     },
+    //这个方法只完成选中或者没选中的请求
     toggle(index) {
       let addProductIds = [];
       _.each(index, v => {
